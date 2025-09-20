@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usuarios registrados</title>
+</head>
+<body>
+    <h1>Usuarios registrados</h1>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+        </tr>
+        {{range .}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Nombre}}</td>
+            <td>{{.Telefono}}</td>
+            <td>{{.Email}}</td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>

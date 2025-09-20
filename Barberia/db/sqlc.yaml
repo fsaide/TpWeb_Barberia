@@ -1,0 +1,9 @@
+version: "1"
+packages:
+  - name: db
+    path: "db/gen"
+    engine: "mysql"
+    schema: "db/schema"
+    queries: "db/queries"
+    gen:
+      go: true

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"database/sql"
+	/*"database/sql"*/
 	"fmt"
 	"html/template"
 	"net/http"
 
-	db "Barberia/db/gen"
+	/*db "Barberia/db/gen"*/
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -15,9 +15,9 @@ func main() {
 	port := ":8080"
 
 	http.HandleFunc("/", handler) //Estas en la raiz --> Ejecuta la funcion handler root}
-	http.HandleFunc("/about", handlerAbout)
+	http.HandleFunc("/aboutUs", handlerAbout)
 	http.HandleFunc("/formsPost", handlerFormsPost)
-	http.HandleFunc("/usuarios", handlerListUsers)
+	/*http.HandleFunc("/usuarios", handlerListUsers)*/
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	fmt.Println("El servidor esta corriendo en el puesto 8080")
@@ -29,16 +29,15 @@ func handler(rw http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(rw, r)
 		return
-	} //No encuentra la direccion ejecuta el error 404
-
-	http.ServeFile(rw, r, "templates/index.html") //Se sirve
+	}
 
 	rw.Header().Set("Content-Type", "text/html; charset=utf-8")
-
+	http.ServeFile(rw, r, "templates/index.html")
 }
 
 func handlerAbout(rw http.ResponseWriter, r *http.Request) {
-	http.ServeFile(rw, r, "templates/about.html")
+	rw.Header().Set("Content-Type", "text/html; charset=utf-8")
+	http.ServeFile(rw, r, "templates/aboutUs.html")
 }
 
 type Turno struct {
@@ -78,7 +77,7 @@ func handlerFormsPost(rw http.ResponseWriter, r *http.Request) {
 		Acepta:   r.FormValue("acepta_politicas"),
 	}
 
-	conn := conexionBD()
+	/*conn := conexionBD()
 	queries := db.New(conn)
 
 	err := queries.CreateUser(r.Context(), db.CreateUserParams{
@@ -90,7 +89,7 @@ func handlerFormsPost(rw http.ResponseWriter, r *http.Request) {
 		http.Error(rw, "Error insertando en BD", http.StatusInternalServerError)
 		return
 	}
-
+	*/
 	tmpl, err := template.ParseFiles("templates/confirmacion.html")
 	if err != nil {
 		http.Error(rw, "Error cargando plantilla", http.StatusInternalServerError)
@@ -100,7 +99,7 @@ func handlerFormsPost(rw http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(rw, turno)
 }
 
-func conexionBD() *sql.DB {
+/*func conexionBD() *sql.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(127.0.0.1:34460)/%s", "root", "", "Barberia")
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
@@ -110,9 +109,9 @@ func conexionBD() *sql.DB {
 		panic(err)
 	}
 	return db
-}
+}*/
 
-func handlerListUsers(rw http.ResponseWriter, r *http.Request) {
+/*func handlerListUsers(rw http.ResponseWriter, r *http.Request) {
 	conn := conexionBD()
 	queries := db.New(conn)
 
@@ -129,4 +128,4 @@ func handlerListUsers(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl.Execute(rw, users)
-}
+}*/

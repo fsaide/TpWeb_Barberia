@@ -4,7 +4,7 @@ body {
     align-items: flex-start; 
     height: 100vh;
     margin: 0;
-    background-image: url('/static/fondoabout.jpg'); 
+    background-image: url('fondoabout2.png'); 
     color: #f0f0f0;
 }
 
